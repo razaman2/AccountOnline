@@ -1,0 +1,18 @@
+{
+  "repositories": [{
+    "type": "vcs",
+    "url": "https://github.com/razaman2/InputParser.git"
+  }],
+  "require": {
+    "php": ">=7.0.0",
+    "input/parser": ">=1.0.0"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "^4.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "AccountOnline\\" : "."
+    }
+  }
+}
