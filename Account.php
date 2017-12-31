@@ -18,8 +18,8 @@
 		protected $SiteOptions;
 		protected $SiteSystemOptions;
 
-		public function __construct($siteSystems, $zones, $agencies, $contacts, $siteOptions, $siteSystemOptions)
-		{
+		public function __construct($siteSystems, $zones, $agencies, $contacts, $siteOptions, $siteSystemOptions) {
+
 			$this->SiteSystems = new SiteSystems($siteSystems);
 			$this->zones = new Zone($zones);
 			$this->SiteAgencyPermits = new Agency($agencies);
@@ -28,8 +28,8 @@
 			$this->SiteSystemOptions = new SiteSystemOptions($siteSystemOptions);
 		}
 
-		public function getAccount()
-		{
+		public function getAccount() {
+
 			$values = $this->SiteSystems->getFormat(new SiteSystemsAsXml())
 				.$this->zones->getFormat(new ZonesAsXml())
 				.$this->SiteAgencyPermits->getFormat(new AgenciesAsXml())

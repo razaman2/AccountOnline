@@ -20,4 +20,9 @@ class ContactsAsXmlSpec extends ObjectBehavior
 			'<Contacts> <Contact first_name="test1" last_name="test2" /></Contacts>'
 		);
 	}
+
+	public function it_implements_iformat_interface() {
+
+		$this->shouldImplement(\AccountOnline\interfaces\IFormat::class);
+	}
 }

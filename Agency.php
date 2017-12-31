@@ -4,33 +4,15 @@
 
 	class Agency extends AbstractEntity
 	{
-		public function setId($agencyTypeId) {
+		protected $properties = [
 
-			return ["agencytype_id" => $agencyTypeId];
-		}
+			"agencytype_id", "phone1", "agency_no", "agency_name", "city_name", "state_id"
+		];
 
-		public function setPhone($phone1) {
+		public function __construct($object, \Parser\Parser $parser) {
 
-			return ["phone1" => $this->formatNumbers($phone1)];
-		}
+			parent::__construct($object, $parser);
 
-		public function setNumber($agencyNo) {
-
-			return ["agency_no" => $agencyNo];
-		}
-
-		public function setName($agencyName) {
-
-			return ["agency_name" => $agencyName];
-		}
-
-		public function setCityName($cityName) {
-
-			return ["city_name" => $cityName];
-		}
-
-		public function setStateId($stateId) {
-
-			return ["state_id" => $stateId];
+			$this->setPhoneNumber();
 		}
 	}

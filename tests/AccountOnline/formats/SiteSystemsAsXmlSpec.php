@@ -20,4 +20,9 @@ class SiteSystemsAsXmlSpec extends ObjectBehavior
 			'<SiteSystems> <SiteSystem first_name="test1" last_name="test2" /></SiteSystems>'
 		);
 	}
+
+	public function it_implements_iformat_interface() {
+
+		$this->shouldImplement(\AccountOnline\interfaces\IFormat::class);
+	}
 }

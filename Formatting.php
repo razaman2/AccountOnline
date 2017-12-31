@@ -8,4 +8,9 @@
 
 			return preg_replace("/\D/", "", $input);
 		}
+
+		protected function stripSpecialChars($input) {
+
+			return preg_replace("/(\W)|(_)/", "", $input);
+		}
 	}

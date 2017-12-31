@@ -20,4 +20,9 @@ class CreditRequestAsXmlSpec extends ObjectBehavior
 			'<CreditRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/CreditReporting.DataController"><first_name>test1</first_name><last_name>test2</last_name></CreditRequest>'
 		);
 	}
+
+	public function it_implements_iformat_interface() {
+
+		$this->shouldImplement(\AccountOnline\interfaces\IFormat::class);
+	}
 }

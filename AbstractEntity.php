@@ -8,57 +8,44 @@
 
 	abstract class AbstractEntity implements IFormattable
 	{
-		use Formatting;
+		use Formatting, PhoneNumber;
 
-		protected $collectionOfEntities;
+		protected $object;
 
-		public function __construct($data = null)
-		{
-			if(!$data) return;
+		protected $properties;
 
-			$this->create($data);
-		}
+		public function __construct($object, \Parser\Parser $parser) {
 
-		protected function outputCollectionOfObjects($collectionOfEntities)
-		{
-			$entities = $collectionOfEntities;
+			$this->object = $parser->parse($object);
 
-			if(is_array($collectionOfEntities) || is_object($collectionOfEntities))
-			{
-				$entities = json_encode($collectionOfEntities);
+			foreach($this->properties as $property) {
+
+				$this->addKeyToObject($this->stripSpecialChars($property));
 			}
-
-			return $this->entitiesToObjects($entities);
 		}
 
-		protected function entitiesToObjects($entities)
-		{
-			$collectionOfEntitiesObject = null;
+		protected function addKeyToObject($key) {
 
-			if(!$collectionOfEntitiesObject = json_decode($entities))
-			{
-				throw new Exception("Unable to parse the supplied collection of entities.");
+			if(isset($this->object->$key)) {
+
+				$this->$key = $this->object->$key;
 			}
-
-			return $collectionOfEntitiesObject;
 		}
 
-		protected function create($entities)
-		{
-			$entities = $this->outputCollectionOfObjects($entities);
+		protected function create($entities) {
 
-			foreach($entities as $entity)
-			{
+			foreach($entities as $entity) {
+
 				$record = new $this;
 
 				$instance = new \stdClass();
 
-				foreach($entity as $entityKey => $entityValue)
-				{
+				foreach($entity as $entityKey => $entityValue) {
+
 					$functionName = "set".$entityKey;
 
-					if(method_exists($record,$functionName))
-					{
+					if(method_exists($record,$functionName)) {
+
 						$result = $this->{$functionName}($entityValue);
 
 						$key = key($result);
@@ -71,9 +58,12 @@
 			}
 		}
 
-		public function getFormat(IFormat $entityFormat)
-		{
-			if(count($this->collectionOfEntities) === 0) throw new Exception("Invalid Operation! getFormat() can only be used when passing data through the constructor");
+		public function getFormat(IFormat $entityFormat) {
+
+			if(count($this->collectionOfEntities) === 0) {
+
+				throw new Exception("Invalid Operation! getFormat() can only be used when passing data through the constructor");
+			}
 
 			return $entityFormat->format($this->collectionOfEntities);
 		}

@@ -4,58 +4,19 @@
 
 	class Contact extends AbstractEntity
 	{
-		public function setFirstName($firstName) {
+		protected $properties = [
 
-			return ["first_name" => $firstName];
+			"first_name", "pin", "last_name", "ctactype_id", "relation_id", "auth_id", "contract_signer_flag", "has_key_flag", "phone1", "phonetype_id1", "contltype_no"
+		];
+
+		public function __construct($object, \Parser\Parser $parser) {
+
+			parent::__construct($object, $parser);
+
+			$this->setPhoneNumber();
 		}
 
-		public function setPasscode($pin) {
+		public $contractsignerflag = 'N';
 
-			return ["pin" => $pin];
-		}
-
-		public function setLastName($lastName) {
-
-			return ["last_name" => $lastName];
-		}
-
-		public function setContactType($contactTypeId) {
-
-			return ["ctactype_id" => $contactTypeId];
-		}
-
-		public function setRelationship($relationId)
-		{
-			return ["relation_id" => $relationId];
-		}
-
-		public function setAuthorityLevel($authId) {
-
-			return ["auth_id" => $authId];
-		}
-
-		public function setSigner($contractSignerFlag) {
-
-			return ["contract_signer_flag" => ($contractSignerFlag) ? "Y" : "N"];
-		}
-
-		public function setHasKey($hasKeyFlag) {
-
-			return ["has_key_flag" => ($hasKeyFlag) ? "Y" : "N"];
-		}
-
-		public function setPhoneNumber($phone1) {
-
-			return ["phone1" => $this->formatNumbers($phone1)];
-		}
-
-		public function setPhoneType($phoneTypeId1) {
-
-			return ["phonetype_id1" => $phoneTypeId1];
-		}
-
-		public function setEnhanced($contlTypeNo) {
-
-			return ["contltype_no" => $contlTypeNo];
-		}
+		public $haskeyflag = 'N';
 	}

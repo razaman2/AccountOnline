@@ -20,4 +20,9 @@ class ZonesAsXmlSpec extends ObjectBehavior
 			'<Zones> <Zone first_name="test1" last_name="test2" /><Zone first_name="test3" last_name="test4" /></Zones>'
 		);
 	}
+
+	public function it_implements_iformat_interface() {
+
+		$this->shouldImplement(\AccountOnline\interfaces\IFormat::class);
+	}
 }

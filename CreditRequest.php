@@ -4,85 +4,34 @@
 
 	class CreditRequest extends AbstractEntity
 	{
-		public function setCS($CS) {
+		protected $properties = [
+			"CS", "SSN", "FirstName", "LastName", "StreetNumber", "StreetName", "City", "State", "Zip", "DealerId", "UserId", "FICO", "RequestDate", "TransactionID", "Token", "BureauID"
+		];
 
-			return ["CS" => $CS];
+		public function __construct($object, \Parser\Parser $parser) {
+
+			parent::__construct($object, $parser);
+
+			if(isset($this->BureauID)) {
+
+				$this->setBureauId();
+			}
+
+			if(isset($this->SSN)) {
+
+				$this->setSsn();
+			}
 		}
 
-		public function setSSN($SSN) {
-
-			return ["SSN" => $this->formatNumbers($SSN)];
-		}
-
-		public function setFirstName($FirstName) {
-
-			return ["FirstName" => $FirstName];
-		}
-
-		public function setLastName($LastName) {
-
-			return ["LastName" => $LastName];
-		}
-
-		public function setStreetNumber($StreetNumber)
-		{
-			return ["StreetNumber" => $StreetNumber];
-		}
-
-		public function setStreetName($StreetName) {
-
-			return ["StreetName" => $StreetName];
-		}
-
-		public function setCity($City) {
-
-			return ["City" => $City];
-		}
-
-		public function setState($State) {
-
-			return ["State" => $State];
-		}
-
-		public function setZip($Zip) {
-
-			return ["Zip" => $Zip];
-		}
-
-		public function setDealerId($DealerId) {
-
-			return ["DealerId" => $DealerId];
-		}
-
-		public function setUserId($UserId) {
-
-			return ["UserId" => $UserId];
-		}
-
-		public function setFICO($FICO) {
-
-			return ["FICO" => $FICO];
-		}
-
-		public function setRequestDate($RequestDate) {
-
-			return ["RequestDate" => $RequestDate];
-		}
-
-		public function setTransactionID($TransactionID) {
-
-			return ["TransactionID" => $TransactionID];
-		}
-
-		public function setToken($Token) {
-
-			return ["Token" => $Token];
-		}
-
-		public function setBureauID($BureauID) {
+		protected function setBureauId() {
 
 			$creditBureau = ["tu" => "1", "efx" => "5", "xpn" => "7"];
 
-			return ["BureauID" => $creditBureau[strtolower($BureauID)]];
+			$this->{'BureauID'} = $creditBureau[strtolower($this->{'BureauID'})];
+		}
+
+		protected function setSsn() {
+
+			$this->{'SSN'} = $this->formatNumbers($this->{'SSN'});
 		}
 	}

@@ -20,4 +20,9 @@ class SiteSystemOptionsAsXmlSpec extends ObjectBehavior
 			'<SiteSystemOptions><SiteSystemOption option_id="FIRST_NAME" option_value="TEST1" /><SiteSystemOption option_id="LAST_NAME" option_value="TEST2" /></SiteSystemOptions>'
 		);
 	}
+
+	public function it_implements_iformat_interface() {
+
+		$this->shouldImplement(\AccountOnline\interfaces\IFormat::class);
+	}
 }
