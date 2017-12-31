@@ -4,23 +4,23 @@
 
 	class CreditRequest extends AbstractEntity
 	{
-		public function setCS($CS)
-		{
+		public function setCS($CS) {
+
 			return ["CS" => $CS];
 		}
 
-		public function setSSN($SSN)
-		{
+		public function setSSN($SSN) {
+
 			return ["SSN" => $this->formatNumbers($SSN)];
 		}
 
-		public function setFirstName($FirstName)
-		{
+		public function setFirstName($FirstName) {
+
 			return ["FirstName" => $FirstName];
 		}
 
-		public function setLastName($LastName)
-		{
+		public function setLastName($LastName) {
+
 			return ["LastName" => $LastName];
 		}
 
@@ -29,60 +29,60 @@
 			return ["StreetNumber" => $StreetNumber];
 		}
 
-		public function setStreetName($StreetName)
-		{
+		public function setStreetName($StreetName) {
+
 			return ["StreetName" => $StreetName];
 		}
 
-		public function setCity($City)
-		{
+		public function setCity($City) {
+
 			return ["City" => $City];
 		}
 
-		public function setState($State)
-		{
+		public function setState($State) {
+
 			return ["State" => $State];
 		}
 
-		public function setZip($Zip)
-		{
+		public function setZip($Zip) {
+
 			return ["Zip" => $Zip];
 		}
 
-		public function setDealerId($DealerId)
-		{
+		public function setDealerId($DealerId) {
+
 			return ["DealerId" => $DealerId];
 		}
 
-		public function setUserId($UserId)
-		{
+		public function setUserId($UserId) {
+
 			return ["UserId" => $UserId];
 		}
 
-		public function setFICO($FICO)
-		{
+		public function setFICO($FICO) {
+
 			return ["FICO" => $FICO];
 		}
 
-		public function setRequestDate($RequestDate)
-		{
+		public function setRequestDate($RequestDate) {
+
 			return ["RequestDate" => $RequestDate];
 		}
 
-		public function setTransactionID($TransactionID)
-		{
+		public function setTransactionID($TransactionID) {
+
 			return ["TransactionID" => $TransactionID];
 		}
 
-		public function setToken($Token)
-		{
+		public function setToken($Token) {
+
 			return ["Token" => $Token];
 		}
 
-		public function setBureauID($BureauID)
-		{
-			$creditBureau = ["TU" => "1", "EFX" => "5", "XPN" => "7"];
+		public function setBureauID($BureauID) {
 
-			return ["BureauID" => $creditBureau[$BureauID]];
+			$creditBureau = ["tu" => "1", "efx" => "5", "xpn" => "7"];
+
+			return ["BureauID" => $creditBureau[strtolower($BureauID)]];
 		}
 	}

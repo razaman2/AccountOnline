@@ -4,8 +4,8 @@
 
 	trait Formatting
 	{
-		protected function formatNumbers($input)
-		{
+		protected function formatNumbers($input) {
+
 			return preg_replace("/\D/", "", $input);
 		}
 	}
