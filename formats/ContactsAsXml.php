@@ -6,18 +6,18 @@
 
 	class ContactsAsXml implements IFormat
 	{
-		public function format(array $data)
-		{
+		public function format(array $data) {
+
 			$contacts = "";
 
-			foreach($data as $obj)
-			{
+			foreach($data as $obj) {
+
 				$contact = "<Contact ";
 
-				foreach($obj as $key => $val)
-				{
-					if($val !== null)
-					{
+				foreach($obj as $key => $val) {
+
+					if($val !== null) {
+
 						$contact .= $key."=\"$val\" ";
 					}
 				}

@@ -6,18 +6,18 @@
 
 	class SiteSystemsAsXml implements IFormat
 	{
-		public function format(array $data)
-		{
+		public function format(array $data) {
+
 			$siteSystems = "";
 
-			foreach($data as $obj)
-			{
+			foreach($data as $obj) {
+
 				$siteSystem = "<SiteSystem ";
 
-				foreach($obj as $key => $val)
-				{
-					if($val !== null)
-					{
+				foreach($obj as $key => $val) {
+
+					if($val !== null) {
+
 						$siteSystem .= $key."=\"$val\" ";
 					}
 				}

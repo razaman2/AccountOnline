@@ -6,12 +6,12 @@
 
 	class SiteSystemOptionsAsXml implements IFormat
 	{
-		public function format(array $data)
-		{
+		public function format(array $data) {
+
 			$values = "";
 
-			foreach($data as $key => $val)
-			{
+			foreach($data as $key => $val) {
+
 				$values .= "<SiteSystemOption option_id=\"".strtoupper($key)."\" option_value=\"".strtoupper($val)."\" />";
 			}
 

@@ -6,16 +6,16 @@
 
 	class CreditRequestAsXml implements IFormat
 	{
-		public function format(array $data)
-		{
+		public function format(array $data) {
+
 			$values = "";
 
-			foreach($data as $obj)
-			{
-				foreach($obj as $key => $val)
-				{
-					if($val !== null)
-					{
+			foreach($data as $obj) {
+
+				foreach($obj as $key => $val) {
+
+					if($val !== null) {
+
 						$values .= "<$key>$val</$key>";
 					}
 				}
