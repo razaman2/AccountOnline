@@ -8,43 +8,40 @@
 	{
 		use Formatting, PhoneNumber;
 
-		protected $properties;
+		protected $properties = [];
 
-		public function __construct($object) {
-
-			/** @todo
-			 * should check @var object that it is of type @class stdClass and throw @class InvalidInputException if
-			 * it is not.
-			 */
+		public function __construct(\Parser\ParserDataObject $object) {
 
 			foreach($this->properties as $property) {
 
-				$this->setClassProperty($object, $this->stripSpecialChars($property));
+				$this->setClassProperty($object,$property);
 			}
 		}
 
-		protected function setClassProperty($object, $key) {
+		protected function setClassProperty($object, $property) {
 
-			if(isset($object->$key)) {
+			$property = $this->stripSpecialChars($property);
 
-				$this->$key = $object->$key;
+			if(isset($object->$property)) {
+
+				$this->$property = $object->$property;
 			}
 		}
 
 		public function data() {
 
-			$data = [];
-
 			foreach($this->properties as $property) {
 
-				$propertyName = $this->stripSpecialChars(strtolower($property));
+				$propertyName = $this->stripSpecialChars($property);
 
-				if(isset($this->$propertyName)) {
+				$propertyName = strtolower($propertyName);
+
+				if(property_exists($this,$propertyName)) {
 
 					$data[$property] = $this->$propertyName;
 				}
 			}
 
-			return $data;
+			return $data ?? [];
 		}
 	}

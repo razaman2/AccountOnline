@@ -4,27 +4,18 @@
 
 	class SiteOptions extends AbstractEntity
 	{
-		protected function create($entities)
-		{
-			$entities = $this->outputCollectionOfObjects($entities);
+		public function __construct($object, $options = []) {
 
-			foreach($entities as $key => $val)
-			{
-				$this->collectionOfEntities[$key] = $val;
-			}
+			$this->setOptions($options);
 
-			$this->collectionOfEntities = $this->getEntityObj();
+			parent::__construct($object);
 		}
 
-		protected function getEntityObj()
-		{
-			$entityObj = [];
+		protected function setOptions($options) {
 
-			foreach($this->collectionOfEntities as $entityKey => $entityVal)
-			{
-				$entityObj[$entityKey] = $entityVal;
+			if(is_array($options) && count($options) > 0) {
+
+				$this->properties = $options;
 			}
-
-			return $entityObj;
 		}
 	}
