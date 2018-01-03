@@ -23,6 +23,6 @@ class PurchaseInfoAsXmlSpec extends ObjectBehavior
 
 	public function it_implements_iformat_interface() {
 
-		$this->shouldImplement(\AccountOnline\interfaces\IFormat::class);
+		$this->shouldImplement(\AccountOnline\interfaces\format::class);
 	}
 }

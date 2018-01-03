@@ -10,7 +10,7 @@ class CreditRequestSpec extends ObjectBehavior
 {
 	public function creditRequest() {
 
-		return '{
+		return (new \Parser\Parser())->parse('{
 			"CS":"cs", 
 			"SSN":"000-00-0000", 
 			"FirstName":"first name", 
@@ -27,12 +27,12 @@ class CreditRequestSpec extends ObjectBehavior
 			"TransactionID":"transaction id", 
 			"Token":"token",
 			"BureauID":"xpn"
-		}';
+		}');
 	}
 
 	public function let() {
 
-		$this->beConstructedWith($this->creditRequest(), new \Parser\Parser());
+		$this->beConstructedWith($this->creditRequest());
 	}
 
     public function it_is_initializable() {

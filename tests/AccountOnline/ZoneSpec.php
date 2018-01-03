@@ -10,19 +10,19 @@ class ZoneSpec extends ObjectBehavior
 {
 	public function zone() {
 
-		return '{
+		return (new \Parser\Parser())->parse('{
     	    "zonecomment":"front door", 
     	    "eventid":"1400", 
     	    "equiplocid":"kit", 
     	    "equiptypeid":"dsr", 
     	    "zoneid":"1", 
     	    "zonestateid":"existing"
-    	}';
+    	}');
 	}
 
 	public function let() {
 
-		$this->beConstructedWith($this->zone(), new \Parser\Parser());
+		$this->beConstructedWith($this->zone());
 	}
 
     public function it_is_initializable() {
@@ -58,5 +58,17 @@ class ZoneSpec extends ObjectBehavior
 	public function it_can_access_zone_state_id_property() {
 
 		$this->zonestateid->shouldBeLike('existing');
+	}
+
+	public function it_can_access_default_equip_loc_id_property() {
+
+		$this->beConstructedWith((new \Parser\Parser())->parse('{"":""}'));
+		$this->equiplocid->shouldBeLike('OTHR');
+	}
+
+	public function it_can_access_default_zone_state_id_property() {
+
+		$this->beConstructedWith((new \Parser\Parser())->parse('{"":""}'));
+		$this->zonestateid->shouldBeLike('A');
 	}
 }

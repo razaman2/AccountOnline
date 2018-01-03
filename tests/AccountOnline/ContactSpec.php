@@ -10,7 +10,7 @@ class ContactSpec extends ObjectBehavior
 {
 	public function contact() {
 
-		return '{
+		return (new \Parser\Parser())->parse('{
 			"firstname":"first name", 
 			"pin":"pin", 
 			"lastname":"last name", 
@@ -22,12 +22,12 @@ class ContactSpec extends ObjectBehavior
 			"phone1":"(201) 551-8814", 
 			"phonetypeid1":"phone type id 1", 
 			"contltypeno":"contl type no"
-		}';
+		}');
 	}
 
 	public function let() {
 
-		$this->beConstructedWith($this->contact(), new \Parser\Parser());
+		$this->beConstructedWith($this->contact());
 	}
 
     public function it_is_initializable() {
@@ -72,7 +72,7 @@ class ContactSpec extends ObjectBehavior
 
 	public function it_can_access_default_contract_signer_flag_property() {
 
-		$this->beConstructedWith('{"firstname":"bob", "lastname":"jones"}', new \Parser\Parser());
+		$this->beConstructedWith((new \Parser\Parser())->parse('{"":""}'));
 		$this->contractsignerflag->shouldBeLike('N');
 	}
 
@@ -83,7 +83,7 @@ class ContactSpec extends ObjectBehavior
 
 	public function it_can_access_default_has_key_flag_property() {
 
-		$this->beConstructedWith('{"firstname":"bob", "lastname":"jones"}', new \Parser\Parser());
+		$this->beConstructedWith((new \Parser\Parser())->parse('{"":""}'));
 		$this->haskeyflag->shouldBeLike('N');
 	}
 
@@ -100,5 +100,25 @@ class ContactSpec extends ObjectBehavior
 	public function it_can_access_contl_type_no_property() {
 
 		$this->contltypeno->shouldBeLike('contl type no');
+	}
+
+	public function it_can_return_an_array_of_properties() {
+
+		$this->data()->shouldBeArray();
+	}
+
+	public function it_should_only_have_keys_that_have_value() {
+
+		$this->beConstructedWith((new \Parser\Parser())->parse('{"":""}'));
+		$this->data()->shouldHaveKey('contract_signer_flag');
+		$this->data()->shouldHaveKey('has_key_flag');
+		$this->data()->shouldNotHaveKey('auth_id');
+	}
+
+	public function it_should_have_keys_for_values_that_have_been_set() {
+
+		$this->beConstructedWith((new \Parser\Parser())->parse('{"relationid":"mother", "phone1":"(201) 944-8841"}'));
+		$this->data()->shouldHaveKeyWithValue('phone1', '2019448841');
+		$this->data()->shouldHaveKeyWithValue('relation_id', 'mother');
 	}
 }

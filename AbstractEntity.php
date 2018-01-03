@@ -2,69 +2,49 @@
 
 	namespace AccountOnline;
 
-	use Exception;
-	use AccountOnline\interfaces\IFormat;
-	use AccountOnline\interfaces\IFormattable;
+	use AccountOnline\interfaces\formattable;
 
-	abstract class AbstractEntity implements IFormattable
+	abstract class AbstractEntity implements formattable
 	{
 		use Formatting, PhoneNumber;
 
-		protected $object;
-
 		protected $properties;
 
-		public function __construct($object, \Parser\Parser $parser) {
+		public function __construct($object) {
 
-			$this->object = $parser->parse($object);
+			/** @todo
+			 * should check @var object that it is of type @class stdClass and throw @class InvalidInputException if
+			 * it is not.
+			 */
 
 			foreach($this->properties as $property) {
 
-				$this->addKeyToObject($this->stripSpecialChars($property));
+				$this->setClassProperty($object, $this->stripSpecialChars($property));
 			}
 		}
 
-		protected function addKeyToObject($key) {
+		protected function setClassProperty($object, $key) {
 
-			if(isset($this->object->$key)) {
+			if(isset($object->$key)) {
 
-				$this->$key = $this->object->$key;
+				$this->$key = $object->$key;
 			}
 		}
 
-		protected function create($entities) {
+		public function data() {
 
-			foreach($entities as $entity) {
+			$data = [];
 
-				$record = new $this;
+			foreach($this->properties as $property) {
 
-				$instance = new \stdClass();
+				$propertyName = $this->stripSpecialChars(strtolower($property));
 
-				foreach($entity as $entityKey => $entityValue) {
+				if(isset($this->$propertyName)) {
 
-					$functionName = "set".$entityKey;
-
-					if(method_exists($record,$functionName)) {
-
-						$result = $this->{$functionName}($entityValue);
-
-						$key = key($result);
-
-						$instance->{$key} = $result[$key];
-					}
+					$data[$property] = $this->$propertyName;
 				}
-
-				$this->collectionOfEntities[] = $instance;
-			}
-		}
-
-		public function getFormat(IFormat $entityFormat) {
-
-			if(count($this->collectionOfEntities) === 0) {
-
-				throw new Exception("Invalid Operation! getFormat() can only be used when passing data through the constructor");
 			}
 
-			return $entityFormat->format($this->collectionOfEntities);
+			return $data;
 		}
 	}

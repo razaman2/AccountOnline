@@ -10,19 +10,19 @@ class PurchaseInfoSpec extends ObjectBehavior
 {
 	public function purchaseInfo() {
 
-		return '{
+		return (new \Parser\Parser())->parse('{
 			"CS":"cs", 
 			"RMR":"rmr", 
 			"DealerId":"dealer id", 
 			"UserId":"user id", 
 			"LastUpdated":"last updated", 
 			"Source":"source"
-		}';
+		}');
 	}
 
 	public function let() {
 
-		$this->beConstructedWith($this->purchaseInfo(), new \Parser\Parser());
+		$this->beConstructedWith($this->purchaseInfo());
 	}
 
     public function it_is_initializable() {

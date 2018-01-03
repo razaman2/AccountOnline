@@ -10,7 +10,7 @@ class SiteSystemsSpec extends ObjectBehavior
 {
 	public function siteSystems() {
 
-		return '{
+		return (new \Parser\Parser())->parse('{
 			"cityname":"city name", 
 			"codeword1":"code word 1", 
 			"countyname":"county name", 
@@ -34,12 +34,12 @@ class SiteSystemsSpec extends ObjectBehavior
 			"installdate":"install date", 
 			"panelcode":"panel code", 
 			"zipcode":"zip code"
-		}';
+		}');
 	}
 
 	public function let() {
 
-		$this->beConstructedWith($this->siteSystems(), new \Parser\Parser());
+		$this->beConstructedWith($this->siteSystems());
 	}
 
     public function it_is_initializable() {

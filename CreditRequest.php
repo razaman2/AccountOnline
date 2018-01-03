@@ -8,9 +8,9 @@
 			"CS", "SSN", "FirstName", "LastName", "StreetNumber", "StreetName", "City", "State", "Zip", "DealerId", "UserId", "FICO", "RequestDate", "TransactionID", "Token", "BureauID"
 		];
 
-		public function __construct($object, \Parser\Parser $parser) {
+		public function __construct($object) {
 
-			parent::__construct($object, $parser);
+			parent::__construct($object);
 
 			if(isset($this->BureauID)) {
 

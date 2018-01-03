@@ -10,19 +10,19 @@ class AgencySpec extends ObjectBehavior
 {
 	public function agency() {
 
-		return '{
+		return (new \Parser\Parser())->parse('{
 			"agencytypeid":"agency type id", 
 			"phone1":"(201) 985-6623", 
 			"agencyno":"agency no", 
 			"agencyname":"agency name", 
 			"cityname":"city name", 
 			"stateid":"state id"
-    	}';
+    	}');
 	}
 
 	public function let() {
 
-		$this->beConstructedWith($this->agency(), new \Parser\Parser());
+		$this->beConstructedWith($this->agency());
 	}
 
     public function it_is_initializable() {

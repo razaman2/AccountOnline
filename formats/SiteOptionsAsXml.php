@@ -2,9 +2,9 @@
 
 	namespace AccountOnline\formats;
 
-	use AccountOnline\interfaces\IFormat;
+	use AccountOnline\interfaces\format;
 
-	class SiteOptionsAsXml implements IFormat
+	class SiteOptionsAsXml implements format
 	{
 		public function format(array $data) {
 
